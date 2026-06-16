@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Студенты</title>
+    <link rel="stylesheet" href="/app.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- 可选：Font Awesome 6 免费图标库（提升视觉） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Студенты</h1>
+
+    <nav class="menu">
+        <a href="/">Главная</a>
+        <a href="/items">Предметы</a>
+        <a href="/issue">Выдача</a>
+        <a href="/return">Возврат</a>
+    </nav>
+
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+
+    <h2>Добавить студента</h2>
+
+    <form method="post" action="/students" class="form">
+        <label>Номер студента</label>
+        <input type="text" name="studentNo" required>
+
+        <label>Имя</label>
+        <input type="text" name="name" required>
+
+        <label>Пол</label>
+        <select name="gender">
+            <option th:each="g : ${T(com.wutao.dormItem.domain.enums.Gender).values()}"
+                    th:value="${g.value}" th:text="${g.text}"></option>
+        </select>
+
+        <label>Специальность</label>
+        <select name="major">
+            <option th:each="m : ${T(com.wutao.dormItem.domain.enums.Major).values()}"
+                    th:value="${m.value}" th:text="${m.text}"></option>
+        </select>
+
+        <label>Комната</label>
+        <select name="dormRoom" required>
+            <option th:each="room : ${rooms}"
+                    th:value="${room.id}"
+                    th:text="${room.roomNumber}"></option>
+        </select>
+
+        <label>Телефон</label>
+        <input type="tel" name="phone" pattern="\+7[0-9]{10}" maxlength="12"
+               placeholder="+71234567890" title="Формат: +7XXXXXXXXXX" required>
+        <small class="hint">Формат: +71234567890</small>
+
+        <input type="hidden" name="status" value="0">
+        <input type="hidden" name="isDeleted" value="false">
+
+        <button type="submit">Добавить</button>
+    </form>
+    <div id="roomMappingData" style="display: none;">
+        <th:block th:each="room : ${rooms}">
+            [[${room.id}]]:[[${room.roomNumber}]];
+        </th:block>
+    </div>
+    <h2>Список студентов</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Номер</th>
+            <th>Имя</th>
+            <th>Пол</th>
+            <th>Специальность</th>
+            <th>Комната</th>
+            <th>Статус</th>
+            <th>Телефон</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s : ${students}">
+            <td th:text="${s.studentNo}"></td>
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.gender.text}"></td>
+            <td th:text="${s.major?.text ?: ''}"></td>
+            <td class="room-cell" th:attr="data-room-id=${s.dormRoom}">
+                <span th:text="${s.dormRoom}"></span>
+            </td>
+            <td th:text="${s.status.text}"></td>
+            <td th:text="${s.phone}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <script>
+        // 解析房间数据
+        var roomMap = {};
+        var rawData = document.getElementById('roomMappingData').innerText.trim();
+        if (rawData) {
+            var entries = rawData.split(';');
+            for (var i = 0; i < entries.length; i++) {
+                var entry = entries[i].trim();
+                if (entry === '') continue;
+                var colonIndex = entry.indexOf(':');
+                if (colonIndex > 0) {
+                    var uuid = entry.substring(0, colonIndex);
+                    var roomNumber = entry.substring(colonIndex + 1);
+                    roomMap[uuid] = roomNumber;
+                }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('td.room-cell').forEach(function(cell) {
+                var uuid = cell.getAttribute('data-room-id');
+                cell.textContent = roomMap[uuid] || 'Не указано';
+            });
+        });
+    </script>
+</div>
+
+</body>
+</html>

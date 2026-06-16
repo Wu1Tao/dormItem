@@ -1,0 +1,30 @@
+﻿ # === Java / Maven ===
+ target/
+ *.jar
+ *.war
+ *.class
+ *.log
+ 
+ # === IDE ===
+ .idea/
+ *.iml
+.claude/
+ .vscode/
+ .settings/
+ .project
+ .classpath
+ .factorypath
+ 
+ # === OS ===
+ .DS_Store
+ Thumbs.db
+ 
+ # === Environment ===
+ .env
+ *.local.*
+ 
+ # === Logs ===
+ logs/
+ 
+ # === Build ===
+ *.exe

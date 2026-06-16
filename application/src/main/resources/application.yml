@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: jdbc
+  datasource:
+    password: 123456
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=dorm_items
+    driver-class-name: org.postgresql.Driver
+
+app:
+  ui:
+    mode: gui
+  business:
+    max-issue-quantity: 10
+  logging:
+    path: logs

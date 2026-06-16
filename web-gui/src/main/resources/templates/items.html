@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Предмет</title>
+    <link rel="stylesheet" href="/app.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- 可选：Font Awesome 6 免费图标库（提升视觉） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Предмет</h1>
+
+    <nav class="menu">
+        <a href="/">Главная</a>
+        <a href="/students">Студенты</a>
+        <a href="/issue">Выдача</a>
+        <a href="/return">Возврат</a>
+    </nav>
+
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+
+    <!-- 只有超级管理员可以看到添加表单 -->
+    <div th:if="${isAdmin}">
+        <h2>Добавить предмет</h2>
+        <form method="post" action="/items" class="form">
+            <label>Название предмета</label>
+            <select name="category" required>
+                <option th:each="c : ${categories}" th:value="${c.value}" th:text="${c.text}"></option>
+            </select>
+
+            <label>Количество</label>
+            <input type="number" name="num" min="0" value="0">
+
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+    <div th:unless="${isAdmin}">
+        <p class="hint">Только системный администратор может добавлять или изменять количество предметов.</p>
+    </div>
+
+    <h2>Список предметов</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Предмет</th>
+            <th>Всего</th>
+            <th>Доступно</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="i : ${items}">
+            <td th:text="${i.category?.text ?: 'Не указано'}"></td>
+            <td th:text="${i.totalStock}"></td>
+            <td th:text="${i.availableStock}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

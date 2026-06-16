@@ -1,0 +1,326 @@
+/* ========== Soft UI / Neumorphism 风格 ========== */
+/* 背景与卡片高度融合，使用柔和的同色系与多重阴影 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #eef0f2;  /* 柔和中性背景 */
+    color: #2c3e4f;
+    line-height: 1.5;
+    padding: 2rem 1rem;
+}
+
+/* 主容器 - 新拟物卡片效果 */
+.container, .auth-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: #eef0f2;  /* 与背景相同，依靠阴影制造立体感 */
+    border-radius: 48px;
+    box-shadow:
+            12px 12px 24px rgba(0, 0, 0, 0.06),
+            -8px -8px 16px rgba(255, 255, 255, 0.7),
+            inset 0 1px 0 rgba(255,255,255,0.5);
+    padding: 2rem 2rem 2.5rem;
+    transition: all 0.25s ease;
+}
+
+.auth-container {
+    max-width: 480px;
+    padding: 2.5rem;
+}
+
+/* 头部区域 */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: none;
+}
+
+.top-bar h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c3e4f;
+    margin: 0;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+}
+
+.top-bar .logout-button {
+    background: #eef0f2;
+    border: none;
+    padding: 0.6rem 1.3rem;
+    border-radius: 60px;
+    color: #2c3e4f;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow:
+            5px 5px 10px rgba(0, 0, 0, 0.05),
+            -3px -3px 8px rgba(255, 255, 255, 0.7);
+    transition: all 0.2s;
+}
+
+.top-bar .logout-button:hover {
+    box-shadow:
+            inset 3px 3px 6px rgba(0, 0, 0, 0.05),
+            inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+    transform: scale(0.98);
+}
+
+/* 导航菜单 - 新拟物按钮组 */
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2rem 0 2rem;
+    padding: 0.5rem 0;
+}
+
+.menu a {
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 60px;
+    font-weight: 500;
+    color: #3a5468;
+    background: #eef0f2;
+    box-shadow:
+            5px 5px 12px rgba(0, 0, 0, 0.05),
+            -4px -4px 10px rgba(255, 255, 255, 0.7);
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+
+.menu a:hover {
+    box-shadow:
+            inset 4px 4px 8px rgba(0, 0, 0, 0.05),
+            inset -3px -3px 8px rgba(255, 255, 255, 0.8);
+    color: #1f6392;
+}
+
+/* 标题 */
+h1 {
+    font-size: 1.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #2c3e4f;
+    letter-spacing: -0.01em;
+}
+
+h2 {
+    font-size: 1.45rem;
+    font-weight: 500;
+    margin: 1.8rem 0 1rem;
+    color: #2c3e4f;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.hint, small.hint {
+    font-size: 0.85rem;
+    color: #5f7f9a;
+}
+
+/* 表单容器 - 柔光内凹效果 */
+.form, .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.8rem 0;
+    background: #eef0f2;
+    padding: 1.8rem;
+    border-radius: 40px;
+    box-shadow:
+            inset 3px 3px 8px rgba(0, 0, 0, 0.03),
+            inset -3px -3px 8px rgba(255, 255, 255, 0.6),
+            6px 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #2c3e4f;
+    margin-bottom: -0.2rem;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border-radius: 32px;
+    border: none;
+    background: #eef0f2;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #1f3b4c;
+    box-shadow:
+            inset 3px 3px 8px rgba(0, 0, 0, 0.08),
+            inset -2px -2px 6px rgba(255, 255, 255, 0.7);
+    transition: all 0.2s;
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    box-shadow:
+            inset 4px 4px 10px rgba(0, 0, 0, 0.1),
+            inset -3px -3px 8px rgba(255, 255, 255, 0.8);
+    outline: none;
+}
+
+/* 主按钮 - 凸起感 */
+button, .button, input[type="submit"] {
+    background: #eef0f2;
+    border: none;
+    padding: 0.75rem 1.8rem;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #2c3e4f;
+    cursor: pointer;
+    box-shadow:
+            6px 6px 14px rgba(0, 0, 0, 0.07),
+            -4px -4px 12px rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+button:hover {
+    box-shadow:
+            inset 4px 4px 10px rgba(0, 0, 0, 0.05),
+            inset -3px -3px 8px rgba(255, 255, 255, 0.7);
+    transform: scale(0.98);
+}
+
+/* 表格内的小按钮 */
+td form button {
+    padding: 0.35rem 1rem;
+    font-size: 0.8rem;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.05), -2px -2px 6px rgba(255,255,255,0.7);
+}
+
+/* 表格 - 轻量化设计 */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.8rem 0;
+    background: #eef0f2;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow:
+            8px 8px 18px rgba(0, 0, 0, 0.05),
+            -6px -6px 14px rgba(255, 255, 255, 0.6);
+}
+
+th {
+    text-align: left;
+    padding: 1rem 1.2rem;
+    background: rgba(255,255,255,0.3);
+    font-weight: 600;
+    color: #1f4e6e;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+td {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* 响应式表格 */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* 提示框 - 轻微内凹 */
+.alert {
+    padding: 0.9rem 1.2rem;
+    border-radius: 32px;
+    margin: 1rem 0;
+    font-weight: 500;
+    background: #eef0f2;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.03), inset -2px -2px 5px rgba(255,255,255,0.6);
+    border-left: 6px solid;
+}
+
+.alert.success {
+    border-left-color: #2ecc71;
+    color: #1e6f3f;
+}
+
+.alert.error {
+    border-left-color: #e67e22;
+    color: #a04000;
+}
+
+/* 登录/注册专用 */
+.auth-container h1 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 1.8rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.auth-link a {
+    color: #2c6e9e;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* 学生搜索结果按钮组 */
+ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+ul li button {
+    background: #eef0f2;
+    border: none;
+    padding: 0.6rem 1.3rem;
+    border-radius: 60px;
+    font-weight: 500;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.05), -3px -3px 8px rgba(255,255,255,0.7);
+}
+
+/* 单选按钮适配 */
+input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: #3a7b9b;
+    box-shadow: none;
+    margin-right: 0.5rem;
+}
+
+/* 提示文字底色柔化 */
+p.hint {
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(2px);
+    padding: 0.8rem 1.2rem;
+    border-radius: 32px;
+    border-left: 4px solid #f1c40f;
+    font-size: 0.9rem;
+}

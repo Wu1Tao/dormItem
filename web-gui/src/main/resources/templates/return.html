@@ -1,0 +1,84 @@
+<!-- return.html -->
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Возврат предмета</title>
+    <link rel="stylesheet" href="/app.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- 可选：Font Awesome 6 免费图标库（提升视觉） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Возврат предмета</h1>
+
+    <nav class="menu">
+        <a href="/">Главная</a>
+        <a href="/students">Студенты</a>
+        <a href="/items">Предметы</a>
+        <a href="/issue">Выдача</a>
+    </nav>
+
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+
+    <!-- 第一步：搜索学生 -->
+    <form method="post" action="/return/search" class="form">
+        <label>Номер студенческого билета или имя</label>
+        <input type="text" name="searchKeyword" required>
+        <button type="submit">Найти студента</button>
+    </form>
+
+    <!-- 显示多个匹配的学生列表 -->
+    <div th:if="${students != null and !students.isEmpty()}">
+        <h2>Найдено несколько студентов:</h2>
+        <form method="post" action="/return/search">
+            <ul>
+                <li th:each="s : ${students}">
+                    <button type="submit" name="searchKeyword" th:value="${s.studentNo}">
+                        <span th:text="${s.name}"/> ([[${s.studentNo}]])
+                    </button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <!-- 第二步：显示未归还记录列表 -->
+    <div th:if="${activeRecords != null and !activeRecords.isEmpty()}">
+        <h2>Активные выдачи студента <span th:text="${student.name}"/> ([[${student.studentNo}]])</h2>
+        <form method="post" action="/return/do">
+            <table>
+                <thead>
+                <tr>
+                    <th>Выбрать</th>
+                    <th>Предмет</th>
+                    <th>Количество</th>
+<!--                    <th>Ожидаемая дата возврата</th>-->
+                    <th>Статус</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="rec : ${activeRecords}">
+                    <td><input type="radio" name="issueRecordId" th:value="${rec.id}" required></td>
+                    <td th:text="${rec.itemName}"></td>
+                    <td th:text="${rec.quantity}"></td>
+<!--                    <td th:text="${rec.expectedReturnDate}"></td>-->
+                    <td th:text="${rec.status}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <label>Количество для возврата</label>
+            <input type="number" name="quantity" min="1" required>
+            <label>Состояние</label>
+            <select name="condition" required>
+                <option value="0">Хорошее</option>
+                <option value="1">Повреждено</option>
+            </select>
+            <button type="submit">Оформить возврат</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Выдача Предмета</title>
+    <link rel="stylesheet" href="/app.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- 可选：Font Awesome 6 免费图标库（提升视觉） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Выдача Предмета</h1>
+
+    <nav class="menu">
+        <a href="/">Главная</a>
+        <a href="/students">Студенты</a>
+        <a href="/items">Предметы</a>
+        <a href="/return">Возврат</a>
+    </nav>
+
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+
+    <form method="post" action="/issue" class="form">
+        <label>Студент</label>
+        <select name="studentId" required>
+            <option th:each="s : ${students}"
+                    th:value="${s.id}"
+                    th:text="${s.studentNo + ' - ' + s.name}">
+            </option>
+        </select>
+
+        <label>Предмет</label>
+        <select name="itemId" required>
+            <option th:each="i : ${items}"
+                    th:value="${i.id}"
+                    th:text="${i.category.text + ' | доступно: ' + i.availableStock}">
+            </option>
+        </select>
+
+        <label>Количество</label>
+        <input type="number" name="quantity" min="1" required>
+
+<!--        <label>Ожидаемая дата возврата</label>-->
+<!--        <input type="date" name="expectedReturnDate" required>-->
+
+        <button type="submit">Оформить выдачу</button>
+    </form>
+</div>
+</body>
+</html>

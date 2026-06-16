@@ -1,0 +1,8 @@
+
+app:
+  logging:
+    path: devLog
+logging:
+  level:
+    com.wutao.dormItem: DEBUG
+    org.springframework: INFO
